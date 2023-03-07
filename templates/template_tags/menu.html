@@ -1,0 +1,22 @@
+{% load draw_dropdown %}
+
+        <div>
+            <a href="{{ menu.get_full_path }}">{{ menu.title }}
+                {{ menu.get_url }}</a>
+            <ul>
+            {% with items=menu.items.all %}
+                {% for item in items %}
+                    {% if item.items.all %}
+                        <li>
+                            <a href="{{ item.get_url }}">
+                               {{ item.title }}
+                            </a>
+                            {% draw_dropdown item %}
+                        </li>
+                    {% else %}
+                        <li><a href="{{ item.get_url }}">?{{ item.title }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            {% endwith %}
+            </ul>
+    </div>
